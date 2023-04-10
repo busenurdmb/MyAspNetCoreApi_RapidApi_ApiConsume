@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelProject.CommonLayer
 {
-    public class Response
+    public class Response:IResponse
     {
         public Response(ResponseType responseType)
         {

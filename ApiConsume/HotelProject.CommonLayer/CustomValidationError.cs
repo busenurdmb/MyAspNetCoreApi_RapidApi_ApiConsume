@@ -8,7 +8,7 @@ namespace HotelProject.CommonLayer
 {
     public class CustomValidationError
     {
-        public string PrropertyName { get; set; }
-        public string ErrorValue { get; set; }
+        public string PropertyName { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

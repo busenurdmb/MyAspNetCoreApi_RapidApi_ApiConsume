@@ -1,9 +1,12 @@
-﻿using HotelProject.DataAccessLayer.Abstract;
+﻿using HotelProject.CommonLayer.Enums;
+using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,33 +21,85 @@ namespace HotelProject.DataAccessLayer.Repositories
             _context = context;
         }
 
-        public void Delete(T t)
+        public async Task CreateAsync(T entity)
         {
-            _context.Set<T>().Remove(t);
-            
+            await _context.Set<T>().AddAsync(entity);
         }
 
-        public  T GetById(int id)
+        public async Task<T> FindAsync(object id)
         {
-            return  _context.Set<T>().Find(id);
+            await _context.Set<T>().FindAsync(id);
         }
 
-        public List<T> GetList()
+        public Task<List<T>> GetAllAsync()
         {
-            return _context.Set<T>().ToList();
+            return  _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public void Insert(T t)
+        public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter)
         {
-           _context.Set<T>().Add(t);
-            
+            throw new NotImplementedException();
         }
 
-        public void Update(T entity)
+        public Task<List<T>> GetAllAsync<TKey>(Expression<Func<T, TKey>> selecter, OrderByType orderByType = OrderByType.DESC)
         {
-
-           var updateEntity=_context.Set<T>().Find(entity.ID);
-            _context.Entry(updateEntity).CurrentValues.SetValues(entity);
+            throw new NotImplementedException();
         }
+
+        public Task<List<T>> GetAllAsync<TKey>(Expression<Func<T, bool>> filter, Expression<Func<T, TKey>> selecter, OrderByType orderByType = OrderByType.DESC)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<T> GetByFilterAsync(Expression<Func<T, bool>> filter, bool asNoTracking = false)
+        {
+            return asNoTracking ?
+                 await _context.Set<T>().AsNoTracking().SingleOrDefaultAsync(filter) :
+                 await _context.Set<T>().SingleOrDefaultAsync(filter);
+        }
+
+        public IQueryable<T> GetQuery()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Remove(T entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(T entity, T unchanged)
+        {
+            throw new NotImplementedException();
+        }
+
+        //public void Delete(T t)
+        //{
+        //    _context.Set<T>().Remove(t);
+
+        //}
+
+        //public  T GetById(int id)
+        //{
+        //    return  _context.Set<T>().Find(id);
+        //}
+
+        //public List<T> GetList()
+        //{
+        //    return _context.Set<T>().ToList();
+        //}
+
+        //public void Insert(T t)
+        //{
+        //   _context.Set<T>().Add(t);
+
+        //}
+
+        //public void Update(T entity)
+        //{
+
+        //   var updateEntity=_context.Set<T>().Find(entity.ID);
+        //    _context.Entry(updateEntity).CurrentValues.SetValues(entity);
+        //}
     }
 }

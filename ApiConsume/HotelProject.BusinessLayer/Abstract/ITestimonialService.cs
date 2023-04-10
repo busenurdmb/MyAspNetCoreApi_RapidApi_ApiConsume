@@ -1,4 +1,5 @@
-﻿using HotelProject.EntityLayer.Concrete;
+﻿using HotelProject.DtoLayer.TestimonialDtos;
+using HotelProject.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HotelProject.BusinessLayer.Abstract
 {
-  public interface ITestimonialService:IGenericService<Testimonial>
+  public interface ITestimonialService:IGenericService<TestimonialCreateDto, TestimonialUpdateDto, TestimonialListDto, Testimonial>
     {
     }
 }

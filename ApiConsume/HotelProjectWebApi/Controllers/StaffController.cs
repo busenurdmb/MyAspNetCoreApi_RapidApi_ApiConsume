@@ -1,7 +1,10 @@
-﻿using HotelProject.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelProject.WebApi.Controllers
 {
@@ -9,30 +12,38 @@ namespace HotelProject.WebApi.Controllers
     [ApiController]
     public class StaffController : ControllerBase
     {
-        private readonly IStaffService _staffService;
 
-        public StaffController(IStaffService stafService)
+
+        private readonly IStaffService _staffService;
+        private readonly IMapper _mapper;
+        public StaffController(IStaffService stafService, IMapper mapper)
         {
             _staffService = stafService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult StaffList()
+        public async Task<IActionResult> StaffList()
         {
-            var list=_staffService.TGetList();
+            var list=await _staffService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult AddStaff(Staff staff)
+        public async Task<IActionResult> AddStaff(StaffCreateDto createDto)
         {
-            _staffService.TInsert(staff);
-            return Ok();
+            if(!ModelState.IsValid)
+            { 
+                return BadRequest(ModelState);
+            }
+            var value=_mapper.Map<StaffCreateDto>(createDto);
+         var cretead= await  _staffService.CreateAsync(createDto);
+            return Created(string.Empty, cretead);
         }
         [HttpDelete("{id}")]
-        public IActionResult DeleteStaff(int id)
+        public async Task<IActionResult> DeleteStaff(int id)
         {
-            var deletid=_staffService.TGetById(id);
-            _staffService.TDelete(deletid);
+            var deletid = await _staffService.GetByIdAsync(id);
+            _staffService.RemoveAsync(deletid);
             return Ok();
 
         }
@@ -43,9 +54,9 @@ namespace HotelProject.WebApi.Controllers
             return Ok();
         }
         [HttpGet("{id}")]
-        public IActionResult GetStaff(int id)
+        public async Task<IActionResult> GetStaff(int id)
         {
-            var value= _staffService.TGetById(id);
+            var value =await _staffService.GetByIdAsync(id);
             return Ok(value);
             
         }

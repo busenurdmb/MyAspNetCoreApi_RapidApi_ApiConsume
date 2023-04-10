@@ -1,8 +1,13 @@
-﻿using HotelProject.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using FluentValidation;
+using HotelProject.BusinessLayer.Abstract;
+using HotelProject.BusinessLayer.AutoMapper;
 using HotelProject.BusinessLayer.Concrete;
+using HotelProject.BusinessLayer.ValidationRules;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.UnitOfWork;
+using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,7 +28,13 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             {
                 opt.UseSqlServer(configuration.GetConnectionString("Local"));
             });
+            var mapper = new MapperConfiguration(opt =>
+            {
+                opt.AddProfile(new StaffProfile());
+            });
 
+services.AddTransient<IValidator<StaffCreateDto>,StaffCreateDtoValidator>();
+            services.AddTransient<IValidator<StaffUpdateDto>,StaffUpdateDtoValidator>();
 
             services.AddScoped<IUow, Uow>();
             services.AddScoped<IStaffService, StaffManager>();

@@ -1,3 +1,4 @@
+using AutoMapper;
 using HotelProject.BusinessLayer.Abstract;
 using HotelProject.BusinessLayer.Concrete;
 using HotelProject.BusinessLayer.DependencyResolvers.Microsoft;
@@ -33,12 +34,13 @@ namespace HotelProjectWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
+            
 
-           // services.AddScoped<IUow, Uow>();
+            // services.AddScoped<IUow, Uow>();
 
             //services.AddScoped<IStaffDal,EfStaffDal>();
-            
-            
+
+
             //services.AddScoped<IServiceDal, EfServiceDal>();
             //services.AddScoped<IServiceService, ServiceManager>();
 
@@ -50,7 +52,7 @@ namespace HotelProjectWebApi
 
             //services.AddScoped<IRoomDal, EfRoomDal>();
             //services.AddScoped<IRoomService, RoomManager>();
-
+            
             services.AddCors(cors =>
             {
                 cors.AddPolicy("HotelApiCors", opt =>

@@ -1,6 +1,9 @@
-﻿using HotelProject.BusinessLayer.Abstract;
+﻿using AutoMapper;
+using FluentValidation;
+using HotelProject.BusinessLayer.Abstract;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.UnitOfWork;
+using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,42 +13,10 @@ using System.Threading.Tasks;
 
 namespace HotelProject.BusinessLayer.Concrete
 {
-    public class ServiceManager : GenericManager<Service>, IServiceService
+    public class ServiceManager : GenericManager<ServiceCreateDto, ServiceUpdateDto, ServiceListDto, Service>, IServiceService
     {
-        private readonly IUow _uow;
-
-        public ServiceManager(IUow uow) : base(uow)
+        public ServiceManager(IUow uow, IMapper mapper, IValidator<ServiceCreateDto> createdtovalidator, IValidator<ServiceUpdateDto> updatevalidator) : base(uow, mapper, createdtovalidator, updatevalidator)
         {
-            _uow = uow;
-        }
-
-        public void Delete(Service t)
-        {
-            _uow.GetRepository<Service>().Delete(t);
-            _uow.SaveChanges();
-        }
-
-        public Service GetById(int id)
-        {
-            return _uow.GetRepository<Service>().GetById(id);
-        }
-
-        public List<Service> GetList()
-        {
-            return _uow.GetRepository<Service>().GetList();
-        }
-
-        public void Insert(Service t)
-        {
-            _uow.GetRepository<Service>().Insert(t);
-            _uow.SaveChanges();
-        }
-
-        public void Update(Service t)
-        {
-            _uow.GetRepository<Service>().Update(t);
-            _uow.SaveChanges();
-
         }
     }
 }

@@ -4,4 +4,9 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HotelProject.DtoLayer\HotelProject.DtoLayer.csproj" />
+    <ProjectReference Include="..\HotelProject.EntityLayer\HotelProject.EntityLayer.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace HotelProject.DtoLayer.Interfaces
+namespace HotelProject.CommonLayer.Enums
 {
-    public interface IUpdateDto
+    public enum OrderByType
     {
-         int ID { get; set; }
+        ASC = 1,
+        DESC = 2
     }
 }

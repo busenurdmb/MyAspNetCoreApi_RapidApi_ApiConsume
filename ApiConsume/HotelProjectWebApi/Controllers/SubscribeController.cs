@@ -19,7 +19,7 @@ namespace HotelProject.WebApi.Controllers
         [HttpGet]
         public IActionResult SubscribeList()
         {
-            var list = _SubscribeService.TGetList();
+            var list = _SubscribeService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]

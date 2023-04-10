@@ -19,7 +19,7 @@ namespace HotelProject.WebApi.Controllers
         [HttpGet]
         public IActionResult RoomList()
         {
-            var list = _RoomService.TGetList();
+            var list = _RoomService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]
