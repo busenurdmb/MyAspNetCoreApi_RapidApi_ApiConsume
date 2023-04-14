@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.Interfaces;
 using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -27,6 +28,8 @@ namespace HotelProject.WebApi.Controllers
         {
             var list = await _staffService.GetAllAsync();
             return Ok(list);
+            //var list = await _staffService.TGetList();
+            //return Ok(list);
         }
         [HttpPost]
         public async Task<IActionResult> AddStaff(StaffCreateDto createDto)
@@ -37,21 +40,35 @@ namespace HotelProject.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(int id)
         {
-          var response=await _staffService.RemoveAsync(id);
+            var data = await _staffService.GetByIdAsync<StaffListDto>(id);
+            if(data == null)
+            {
+                return NotFound(id);
+            }
+            await _staffService.RemoveAsync(id);
             return NoContent();
 
         }
         [HttpPut]
         public async Task<IActionResult> UpdateStaff(StaffUpdateDto updateDto)
         {
+            var checkstaf = await _staffService.GetByIdAsync<StaffListDto>(updateDto.ID);
+            if(checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
             var response = await _staffService.UpdateAsync(updateDto);
             return NoContent();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStaff(int id)
         {
-            var value = await _staffService.GetByIdAsync<StaffListDto>(id);
-            return Ok(value);
+            var data = await _staffService.GetByIdAsync<StaffListDto>(id);
+            if(data== null)
+            {
+                return NotFound(id);
+            }
+            return Ok(data);
 
         }
 

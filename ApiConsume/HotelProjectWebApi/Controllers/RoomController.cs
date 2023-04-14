@@ -1,5 +1,6 @@
 ﻿using HotelProject.BusinessLayer.Abstract;
 using HotelProject.DtoLayer.RoomDtos;
+using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -34,21 +35,35 @@ namespace HotelProject.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteRoom(int id)
         {
-            var response = await _RoomService.RemoveAsync(id);
+            var data = await _RoomService.GetByIdAsync<RommListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            await _RoomService.RemoveAsync(id);
             return NoContent();
 
         }
         [HttpPut]
         public async Task<IActionResult> UpdateRoom(RoomUpdateDto updateDto)
         {
+            var checkstaf = await _RoomService.GetByIdAsync<RommListDto>(updateDto.ID);
+            if (checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
             var response = await _RoomService.UpdateAsync(updateDto);
             return NoContent();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetRoom(int id)
         {
-            var value = await _RoomService.GetByIdAsync<RommListDto>(id);
-            return Ok(value);
+            var data = await _RoomService.GetByIdAsync<RommListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            return Ok(data);
 
         }
 

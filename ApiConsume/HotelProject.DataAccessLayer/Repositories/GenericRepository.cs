@@ -33,7 +33,7 @@ namespace HotelProject.DataAccessLayer.Repositories
 
         public Task<List<T>> GetAllAsync()
         {
-            return  _context.Set<T>().AsNoTracking().ToListAsync();
+            return  _context.Set<T>().ToListAsync();
         }
 
         public Task<List<T>> GetAllAsync(Expression<Func<T, bool>> filter)
@@ -84,10 +84,10 @@ namespace HotelProject.DataAccessLayer.Repositories
         //    return  _context.Set<T>().Find(id);
         //}
 
-        //public List<T> GetList()
-        //{
-        //    return _context.Set<T>().ToList();
-        //}
+        public async Task<List<T>> GetList()
+        {
+            return await _context.Set<T>().AsNoTracking().ToListAsync();
+        }
 
         //public void Insert(T t)
         //{

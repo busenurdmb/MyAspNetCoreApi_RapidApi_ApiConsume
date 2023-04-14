@@ -32,10 +32,16 @@ namespace HotelProject.WebApi.Controllers
         //    _validator = validator;
         //}
 
+        //[HttpGet]
+        //public IActionResult StaffList()
+        //{
+        //    var list = _staffService.GetAllAsync();
+        //    return Ok(list);
+        //}
         [HttpGet]
-        public IActionResult StaffList()
+        public async Task<IActionResult> StaffListcommonsız()
         {
-            var list = _staffService.GetAllAsync();
+            var list = await _staffService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]

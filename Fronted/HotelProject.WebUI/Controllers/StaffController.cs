@@ -1,10 +1,12 @@
-﻿using HotelProject.WebUI.Models.Staff;
+﻿
+using HotelProject.WebUI.Models.Staff;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace HotelProject.WebUI.Controllers
 {
@@ -17,23 +19,24 @@ namespace HotelProject.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public async Task< IActionResult> Index()
+        public async Task<IActionResult> Index()
         {
-            var client=_httpClientFactory.CreateClient();
+            var client = _httpClientFactory.CreateClient();
             var responmmessage = await client.GetAsync("http://localhost:58806/api/Staff");
-            if(responmmessage.IsSuccessStatusCode) 
-            { 
-                var jsondata= await responmmessage.Content.ReadAsStringAsync();
+            if (responmmessage.IsSuccessStatusCode)
+            {
+                var jsondata = await responmmessage.Content.ReadAsStringAsync();
                 var value = JsonConvert.DeserializeObject<List<StaffViewModel>>(jsondata);
-                return View(value);
+               return View(value);
             }
+          
             return View();
         }
         [HttpGet]
         public IActionResult AddStaff()
         {
             return View();
-     
+
         }
         [HttpPost]
         public async Task<IActionResult> AddStaff(AddStaffViewModel model)

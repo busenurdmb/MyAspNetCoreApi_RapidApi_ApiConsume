@@ -24,7 +24,7 @@ namespace HotelProject.DataAccessLayer.Abstract
         //void Insert(T t);
         //void Delete(T t);
         //void Update(T entity);
-        //List<T> GetList();
+        Task<List<T>> GetList();
         //T GetById(int id);
     }
 }

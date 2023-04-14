@@ -1,2 +1,12 @@
 1-Katmanlar oluþturuldu 
-2-deneme brach mastera aktarma
+2-response oluþturuldu
+3-unit of work oluþturuldu
+4-Repository oluþturuldu
+5-WEB APÝ CONTROLLER oluþturuldu ve çalýþtý
+5.1-dtolar ve fluentapi oluþturuldu
+6-fronted kýsmýna geçildi
+7-controller (staff,testimonial)oluþturuldu
+8-Web Api Consume etme sýrasýnda (staff) json gelen listeyi modele dönüþtürmede sorun yaþadý
+-9 sebebi listeye dönüþtürülecek jsondata içerisinde response mesajlarý bulunmasý 
+10-bundan dolayý businesstaki methotlarda bulunan responslar kaldýrýldý
+11-commonlayer dursun silmicem fronted tarafý çalýþmadýðý için kullanmýyorum

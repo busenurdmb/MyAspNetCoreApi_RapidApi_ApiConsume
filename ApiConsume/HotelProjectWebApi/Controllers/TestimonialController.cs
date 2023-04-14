@@ -1,4 +1,5 @@
 ﻿using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.DtoLayer.TestimonialDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
@@ -35,21 +36,35 @@ namespace HotelProject.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTestimonial(int id)
         {
-            var response = await _TestimonialService.RemoveAsync(id);
+            var data = await _TestimonialService.GetByIdAsync<TestimonialListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            await _TestimonialService.RemoveAsync(id);
             return NoContent();
 
         }
         [HttpPut]
         public async Task<IActionResult> UpdateTestimonial(TestimonialUpdateDto updateDto)
         {
+            var checkstaf = await _TestimonialService.GetByIdAsync<TestimonialListDto>(updateDto.ID);
+            if (checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
             var response = await _TestimonialService.UpdateAsync(updateDto);
             return NoContent();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetTestimonial(int id)
         {
-            var value = await _TestimonialService.GetByIdAsync<TestimonialListDto>(id);
-            return Ok(value);
+            var data = await _TestimonialService.GetByIdAsync<TestimonialListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            return Ok(data);
 
         }
 

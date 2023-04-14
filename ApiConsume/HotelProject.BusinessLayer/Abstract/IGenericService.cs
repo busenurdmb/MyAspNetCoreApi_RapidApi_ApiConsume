@@ -1,4 +1,4 @@
-﻿using HotelProject.CommonLayer;
+﻿//using HotelProject.CommonLayer;
 using HotelProject.DtoLayer.Interfaces;
 using HotelProject.EntityLayer.Concrete;
 using System;
@@ -15,10 +15,16 @@ namespace HotelProject.BusinessLayer.Abstract
         where ListDto:class,IDto,new ()
         where T : BaseEntity
     {
-        Task<IResponse<CreateDto>> CreateAsync(CreateDto Dto);
-        Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto Dto);
-        Task<IResponse<IDto>> GetByIdAsync<IDto>(int id);
-        Task<IResponse> RemoveAsync(int id);
-        Task<IResponse<List<ListDto>>> GetAllAsync();
+        Task<CreateDto> CreateAsync(CreateDto Dto);
+        Task<UpdateDto> UpdateAsync(UpdateDto Dto);
+        Task<IDto> GetByIdAsync<IDto>(int id);
+        Task RemoveAsync(int id);
+        Task<IList<ListDto>> GetAllAsync();
+        //Task<IResponse<CreateDto>> CreateAsync(CreateDto Dto);
+        //Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto Dto);
+        //Task<IResponse<IDto>> GetByIdAsync<IDto>(int id);
+        //Task<IResponse> RemoveAsync(int id);
+        //Task<IResponse<List<ListDto>>> GetAllAsync();
+        //Task<List<ListDto>> TGetList();
     }
 }

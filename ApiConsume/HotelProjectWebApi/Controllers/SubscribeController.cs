@@ -1,4 +1,5 @@
 ﻿using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.DtoLayer.SubscribeDto;
 
 using HotelProject.EntityLayer.Concrete;
@@ -35,21 +36,35 @@ namespace HotelProject.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteSubscribe(int id)
         {
-            var response = await _SubscribeService.RemoveAsync(id);
+            var data = await _SubscribeService.GetByIdAsync<SubscribeListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            await _SubscribeService.RemoveAsync(id);
             return NoContent();
 
         }
         [HttpPut]
         public async Task<IActionResult> UpdateSubscribe(SubscribeUpdateDto updateDto)
         {
+            var checkstaf = await _SubscribeService.GetByIdAsync<SubscribeListDto>(updateDto.ID);
+            if (checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
             var response = await _SubscribeService.UpdateAsync(updateDto);
             return NoContent();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetSubscribe(int id)
         {
-            var value = await _SubscribeService.GetByIdAsync<SubscribeListDto>(id);
-            return Ok(value);
+            var data = await _SubscribeService.GetByIdAsync<SubscribeListDto>(id);
+            if (data == null)
+            {
+                return NotFound(id);
+            }
+            return Ok(data);
 
         }
 
