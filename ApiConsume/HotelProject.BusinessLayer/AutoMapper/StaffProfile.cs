@@ -14,6 +14,8 @@ namespace HotelProject.BusinessLayer.AutoMapper
         public StaffProfile()
         {
             CreateMap<StaffCreateDto,Staff>().ReverseMap();
+            CreateMap<StaffListDto, Staff>().ReverseMap();
+            CreateMap<StaffUpdateDto, Staff>().ReverseMap();
         }
     }
 }

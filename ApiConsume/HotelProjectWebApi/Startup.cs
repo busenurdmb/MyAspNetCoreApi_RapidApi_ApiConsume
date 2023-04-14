@@ -2,6 +2,7 @@ using AutoMapper;
 using HotelProject.BusinessLayer.Abstract;
 using HotelProject.BusinessLayer.Concrete;
 using HotelProject.BusinessLayer.DependencyResolvers.Microsoft;
+using HotelProject.BusinessLayer.Helpers;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 
@@ -34,7 +35,17 @@ namespace HotelProjectWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
-            
+            var profiles = ProfileHelpers.GetProfiles();
+
+            //profiles.Add(new UserCreateModelProfile());
+            var mapperConfiguration = new MapperConfiguration(opt =>
+            {
+                //opt.profile();
+                opt.AddProfiles(profiles);
+
+            });
+            var mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
 
             // services.AddScoped<IUow, Uow>();
 
@@ -52,7 +63,7 @@ namespace HotelProjectWebApi
 
             //services.AddScoped<IRoomDal, EfRoomDal>();
             //services.AddScoped<IRoomService, RoomManager>();
-            
+
             services.AddCors(cors =>
             {
                 cors.AddPolicy("HotelApiCors", opt =>

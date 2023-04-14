@@ -40,7 +40,7 @@ namespace HotelProject.BusinessLayer.Concrete
             {
                 var createdEntity = _mapper.Map<T>(Dto);
                 await _uow.GetRepository<T>().CreateAsync(createdEntity);
-                await _uow.SaveChanges();
+                await _uow.SaveChangesAsync();
                 return new Response<CreateDto>(ResponseType.Success,Dto);
             }
             return new Response<CreateDto>(Dto, result.ConvertToCustomValidationError());
@@ -62,14 +62,33 @@ namespace HotelProject.BusinessLayer.Concrete
             return new Response<IDto>(ResponseType.Success, dto);
         }
 
-        public Task<IResponse> RemoveAsync(int id)
+        public async Task<IResponse> RemoveAsync(int id)
         {
-            throw new NotImplementedException();
+            var data = await _uow.GetRepository<T>().FindAsync(id);
+            if (data == null)
+                return new Response<IDto>(ResponseType.NotFound, $"{id} idsine sahip data bulnamadı");
+            //var dto= _mapper.Map<IDto>(data);
+            _uow.GetRepository<T>().Remove(data);
+            await _uow.SaveChangesAsync();
+            return new Response(ResponseType.Success);
+
+
         }
 
-        public Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto Dto)
+        public async Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto Dto)
         {
-            throw new NotImplementedException();
+            var result = _updatevalidator.Validate(Dto);
+            if (result.IsValid)
+            {
+                var unchangedData = await _uow.GetRepository<T>().FindAsync(Dto.ID);
+                if (unchangedData == null)
+                    return new Response<UpdateDto>(ResponseType.NotFound, $"{Dto.ID} idsine sahip data bulunamadı");
+                var entity = _mapper.Map<T>(Dto);
+                _uow.GetRepository<T>().Update(entity, unchangedData);
+                await _uow.SaveChangesAsync();
+                return new Response<UpdateDto>(ResponseType.Success, Dto);
+            }
+            return new Response<UpdateDto>(Dto, result.ConvertToCustomValidationError());
         }
 
         //public void TDelete(T t)

@@ -11,6 +11,6 @@ namespace HotelProject.DataAccessLayer.UnitOfWork
     public interface IUow
     {
         IGenericRepository<T> GetRepository<T>() where T : BaseEntity;
-        Task SaveChanges();
+        Task SaveChangesAsync();
     }
 }

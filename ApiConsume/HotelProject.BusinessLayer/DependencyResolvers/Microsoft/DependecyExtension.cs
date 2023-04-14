@@ -7,7 +7,11 @@ using HotelProject.BusinessLayer.ValidationRules;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.UnitOfWork;
+using HotelProject.DtoLayer.RoomDtos;
+using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.DtoLayer.StaffDtos;
+using HotelProject.DtoLayer.SubscribeDto;
+using HotelProject.DtoLayer.TestimonialDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -33,10 +37,24 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
                 opt.AddProfile(new StaffProfile());
             });
 
-services.AddTransient<IValidator<StaffCreateDto>,StaffCreateDtoValidator>();
+           services.AddScoped<IUow, Uow>();
+
+            services.AddTransient<IValidator<StaffCreateDto>,StaffCreateDtoValidator>();
             services.AddTransient<IValidator<StaffUpdateDto>,StaffUpdateDtoValidator>();
 
-            services.AddScoped<IUow, Uow>();
+            services.AddTransient<IValidator<ServiceCreateDto>, ServiceCreateDtoValidator>();
+            services.AddTransient<IValidator<ServiceUpdateDto>, ServiceUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<SubscribeCreateDto>, SubscribeCreateDtoValidator>();
+            services.AddTransient<IValidator<SubscribeUpdateDto>, SubscribeUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<TestimonialCreateDto>, TestimonialCreateDtoValidator>();
+            services.AddTransient<IValidator<TestimonialUpdateDto>, TestimonialUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<RoomCreateDto>, RommCreateDtovalidator>();
+            services.AddTransient<IValidator<RoomUpdateDto>, RommUpdateDtovalidator>();
+
+           
             services.AddScoped<IStaffService, StaffManager>();
             services.AddScoped<IServiceService, ServiceManager>();
             services.AddScoped<IRoomService, RoomManager>();

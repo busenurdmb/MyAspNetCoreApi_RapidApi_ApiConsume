@@ -28,7 +28,7 @@ namespace HotelProject.DataAccessLayer.Repositories
 
         public async Task<T> FindAsync(object id)
         {
-            await _context.Set<T>().FindAsync(id);
+          return  await _context.Set<T>().FindAsync(id);
         }
 
         public Task<List<T>> GetAllAsync()
@@ -65,12 +65,12 @@ namespace HotelProject.DataAccessLayer.Repositories
 
         public void Remove(T entity)
         {
-            throw new NotImplementedException();
+            _context.Set<T>().Remove(entity);
         }
 
         public void Update(T entity, T unchanged)
         {
-            throw new NotImplementedException();
+           _context.Entry(unchanged).CurrentValues.SetValues(entity);
         }
 
         //public void Delete(T t)

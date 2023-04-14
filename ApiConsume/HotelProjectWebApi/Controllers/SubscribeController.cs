@@ -1,7 +1,10 @@
 ﻿using HotelProject.BusinessLayer.Abstract;
+using HotelProject.DtoLayer.SubscribeDto;
+
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace HotelProject.WebApi.Controllers
 {
@@ -11,44 +14,44 @@ namespace HotelProject.WebApi.Controllers
     {
         private readonly ISubscribeService _SubscribeService;
 
-        public SubscribeController(ISubscribeService Subscribeservice)
+        public SubscribeController(ISubscribeService stafService)
         {
-            _SubscribeService = Subscribeservice;
+            _SubscribeService = stafService;
+
         }
 
         [HttpGet]
-        public IActionResult SubscribeList()
+        public async Task<IActionResult> SubscribeList()
         {
-            var list = _SubscribeService.GetAllAsync();
+            var list = await _SubscribeService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]
-        public IActionResult AddSubscribe(Subscribe Subscribe)
+        public async Task<IActionResult> AddSubscribe(SubscribeCreateDto createDto)
         {
-            _SubscribeService.TInsert(Subscribe);
-            return Ok();
+            var response = await _SubscribeService.CreateAsync(createDto);
+            return Created(string.Empty, response);
         }
-        [HttpDelete]
-        public IActionResult DeleteSubscribe(int id)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteSubscribe(int id)
         {
-            var deletid = _SubscribeService.TGetById(id);
-            _SubscribeService.TDelete(deletid);
-            return Ok();
+            var response = await _SubscribeService.RemoveAsync(id);
+            return NoContent();
 
         }
         [HttpPut]
-        public IActionResult UpdateSubscribe(Subscribe Subscribe)
+        public async Task<IActionResult> UpdateSubscribe(SubscribeUpdateDto updateDto)
         {
-            _SubscribeService.TUpdate(Subscribe);
-
-            return Ok();
+            var response = await _SubscribeService.UpdateAsync(updateDto);
+            return NoContent();
         }
         [HttpGet("{id}")]
-        public IActionResult GetSubscribe(int id)
+        public async Task<IActionResult> GetSubscribe(int id)
         {
-            var value = _SubscribeService.TGetById(id);
+            var value = await _SubscribeService.GetByIdAsync<SubscribeListDto>(id);
             return Ok(value);
 
         }
+
     }
 }

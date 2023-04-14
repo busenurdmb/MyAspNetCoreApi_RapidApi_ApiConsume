@@ -25,7 +25,7 @@ namespace HotelProject.DataAccessLayer.UnitOfWork
             return new GenericRepository<T>(_context);
         }
 
-        public async Task SaveChanges()
+        public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();
         }

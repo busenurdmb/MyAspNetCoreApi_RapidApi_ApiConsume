@@ -15,50 +15,45 @@ namespace HotelProject.WebApi.Controllers
 
 
         private readonly IStaffService _staffService;
-        private readonly IMapper _mapper;
-        public StaffController(IStaffService stafService, IMapper mapper)
+
+        public StaffController(IStaffService stafService)
         {
             _staffService = stafService;
-            _mapper = mapper;
+
         }
 
         [HttpGet]
         public async Task<IActionResult> StaffList()
         {
-            var list=await _staffService.GetAllAsync();
+            var list = await _staffService.GetAllAsync();
             return Ok(list);
         }
         [HttpPost]
         public async Task<IActionResult> AddStaff(StaffCreateDto createDto)
         {
-            if(!ModelState.IsValid)
-            { 
-                return BadRequest(ModelState);
-            }
-            var value=_mapper.Map<StaffCreateDto>(createDto);
-         var cretead= await  _staffService.CreateAsync(createDto);
-            return Created(string.Empty, cretead);
+            var response = await _staffService.CreateAsync(createDto);
+            return Created(string.Empty, response);
         }
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteStaff(int id)
         {
-            var deletid = await _staffService.GetByIdAsync(id);
-            _staffService.RemoveAsync(deletid);
-            return Ok();
+          var response=await _staffService.RemoveAsync(id);
+            return NoContent();
 
         }
         [HttpPut]
-        public IActionResult UpdateStaff(Staff staff)
+        public async Task<IActionResult> UpdateStaff(StaffUpdateDto updateDto)
         {
-            _staffService.TUpdate(staff);
-            return Ok();
+            var response = await _staffService.UpdateAsync(updateDto);
+            return NoContent();
         }
         [HttpGet("{id}")]
         public async Task<IActionResult> GetStaff(int id)
         {
-            var value =await _staffService.GetByIdAsync(id);
+            var value = await _staffService.GetByIdAsync<StaffListDto>(id);
             return Ok(value);
-            
+
         }
+
     }
 }
