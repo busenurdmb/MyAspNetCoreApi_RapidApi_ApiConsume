@@ -10,3 +10,5 @@
 -9 sebebi listeye dönüþtürülecek jsondata içerisinde response mesajlarý bulunmasý 
 10-bundan dolayý businesstaki methotlarda bulunan responslar kaldýrýldý
 11-commonlayer dursun silmicem fronted tarafý çalýþmadýðý için kullanmýyorum
+12-staff service kýsýmlarýnda list add update delete iþlemleri yaptým
+13-idenity kütüphanesi eklendi 

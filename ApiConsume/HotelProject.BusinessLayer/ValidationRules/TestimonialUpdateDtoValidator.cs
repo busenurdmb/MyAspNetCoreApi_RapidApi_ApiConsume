@@ -12,6 +12,10 @@ namespace HotelProject.BusinessLayer.ValidationRules
     {
         public TestimonialUpdateDtoValidator()
         {
+            RuleFor(x => x.Title).NotEmpty().WithMessage("boş geçme");
+            RuleFor(x => x.Description).NotEmpty().WithMessage("boş geçme");
+            RuleFor(x => x.Name).NotEmpty().WithMessage("boş geçme");
+            RuleFor(x => x.Image).NotEmpty();
         }
     }
 }

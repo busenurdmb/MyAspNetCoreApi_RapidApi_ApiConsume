@@ -32,6 +32,7 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             {
                 opt.UseSqlServer(configuration.GetConnectionString("Local"));
             });
+
             var mapper = new MapperConfiguration(opt =>
             {
                 opt.AddProfile(new StaffProfile());
