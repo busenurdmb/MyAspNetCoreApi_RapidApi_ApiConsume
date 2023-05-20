@@ -19,6 +19,8 @@ namespace HotelProject.BusinessLayer.Helpers
                 new ServiceProfile(),
                 new SubscribeProfile(),
                 new TestimonialProfile(),
+                new AboutProfile(),
+                new BookingProfiles(),
                 
             };
 

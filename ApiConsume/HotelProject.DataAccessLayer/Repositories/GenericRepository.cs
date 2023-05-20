@@ -89,6 +89,13 @@ namespace HotelProject.DataAccessLayer.Repositories
             return await _context.Set<T>().AsNoTracking().ToListAsync();
         }
 
+        public void BookingStatusChangedApproved(T entity)
+        {
+           var value= _context.Bookings.Where(x => x.ID == entity.ID).FirstOrDefault();
+            value.Status = "Onaylandı";
+
+        }
+
         //public void Insert(T t)
         //{
         //   _context.Set<T>().Add(t);

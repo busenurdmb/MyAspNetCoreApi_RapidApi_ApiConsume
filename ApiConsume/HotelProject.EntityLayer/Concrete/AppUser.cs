@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,8 @@ namespace HotelProject.EntityLayer.Concrete
 {
    public class AppUser:IdentityUser<int>
     {
-        public int Name { get; set; }
-        public int SurName { get; set; }
-        public int City { get; set; }
+        public string Name { get; set; }
+        public string SurName { get; set; }
+        public string City { get; set; }
     }
 }

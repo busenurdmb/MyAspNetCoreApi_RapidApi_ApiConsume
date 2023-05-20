@@ -21,10 +21,12 @@ namespace HotelProject.DataAccessLayer.Abstract
         void Remove(T entity);
         Task CreateAsync(T entity);
         void Update(T entity, T unchanged);
+        void BookingStatusChangedApproved(T entity);
         //void Insert(T t);
         //void Delete(T t);
         //void Update(T entity);
         Task<List<T>> GetList();
+        
         //T GetById(int id);
     }
 }

@@ -1,12 +1,15 @@
 using AutoMapper;
+using FluentValidation;
 using HotelProject.BusinessLayer.Abstract;
 using HotelProject.BusinessLayer.Concrete;
 using HotelProject.BusinessLayer.DependencyResolvers.Microsoft;
 using HotelProject.BusinessLayer.Helpers;
+using HotelProject.BusinessLayer.ValidationRules;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 
 using HotelProject.DataAccessLayer.UnitOfWork;
+using HotelProject.DtoLayer.BookingDtos;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -46,7 +49,7 @@ namespace HotelProjectWebApi
             });
             var mapper = mapperConfiguration.CreateMapper();
             services.AddSingleton(mapper);
-
+           
             // services.AddScoped<IUow, Uow>();
 
             //services.AddScoped<IStaffDal,EfStaffDal>();

@@ -7,6 +7,8 @@ using HotelProject.BusinessLayer.ValidationRules;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.UnitOfWork;
+using HotelProject.DtoLayer.AboutDtos;
+using HotelProject.DtoLayer.BookingDtos;
 using HotelProject.DtoLayer.RoomDtos;
 using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.DtoLayer.StaffDtos;
@@ -55,13 +57,23 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<RoomCreateDto>, RommCreateDtovalidator>();
             services.AddTransient<IValidator<RoomUpdateDto>, RommUpdateDtovalidator>();
 
-           
+            services.AddTransient<IValidator<AboutCreateDto>, AboutCreateDtoValidator>();
+            services.AddTransient<IValidator<AboutUpdateDto>, AboutUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<BookingCreateDto>, BookingCreaeDtoValidator>();
+            services.AddTransient<IValidator<BookingUpdateDto>, BookingUpdateDtoValidator>();
+
+         
             services.AddScoped<IStaffService, StaffManager>();
             services.AddScoped<IServiceService, ServiceManager>();
             services.AddScoped<IRoomService, RoomManager>();
             services.AddScoped<ISubscribeService, SubscribeManager>();
             services.AddScoped<ITestimonialService, TestimonialManager>();
-          
+            services.AddScoped<IAboutService, AboutManager>(); 
+            services.AddScoped<IBookingService, BookingManager>();
+
+
+
         }
     }
 }

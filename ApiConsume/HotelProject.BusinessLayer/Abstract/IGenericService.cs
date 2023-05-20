@@ -20,6 +20,7 @@ namespace HotelProject.BusinessLayer.Abstract
         Task<IDto> GetByIdAsync<IDto>(int id);
         Task RemoveAsync(int id);
         Task<IList<ListDto>> GetAllAsync();
+        
         //Task<IResponse<CreateDto>> CreateAsync(CreateDto Dto);
         //Task<IResponse<UpdateDto>> UpdateAsync(UpdateDto Dto);
         //Task<IResponse<IDto>> GetByIdAsync<IDto>(int id);

@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.DtoLayer", "Ap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.WebUI", "Fronted\HotelProject.WebUI\HotelProject.WebUI.csproj", "{E17DEC5D-409D-43F2-9D94-73569AD115E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HotelProject.CommonLayer", "ApiConsume\HotelProject.CommonLayer\HotelProject.CommonLayer.csproj", "{56EF8924-08B7-43A9-B6EA-FF557389BE25}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HotelProject.CommonLayer", "ApiConsume\HotelProject.CommonLayer\HotelProject.CommonLayer.csproj", "{56EF8924-08B7-43A9-B6EA-FF557389BE25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
