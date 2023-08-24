@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace HotelProject.BusinessLayer.Helpers
 {
     public static class ProfileHelpers
@@ -21,6 +22,8 @@ namespace HotelProject.BusinessLayer.Helpers
                 new TestimonialProfile(),
                 new AboutProfile(),
                 new BookingProfiles(),
+                new ContactProfiile(),
+                new GuestProfiles()
                 
             };
 

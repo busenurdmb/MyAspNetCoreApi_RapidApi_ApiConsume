@@ -16,7 +16,7 @@ namespace HotelProject.BusinessLayer.ValidationRules
             RuleFor(x=>x.Description).NotEmpty().WithMessage("boş geçme");
             RuleFor(x=>x.RommNumber).NotEmpty().WithMessage("boş geçme");
             RuleFor(x=>x.Price).NotEmpty();
-            RuleFor(x=>x.Wifi).NotEmpty();
+            //RuleFor(x=>x.Wifi).NotEmpty();
         }
     }
 }

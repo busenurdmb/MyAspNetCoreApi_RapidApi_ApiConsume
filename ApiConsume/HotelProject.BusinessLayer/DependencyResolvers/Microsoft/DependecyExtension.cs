@@ -3,12 +3,15 @@ using FluentValidation;
 using HotelProject.BusinessLayer.Abstract;
 using HotelProject.BusinessLayer.AutoMapper;
 using HotelProject.BusinessLayer.Concrete;
+using HotelProject.BusinessLayer.Helpers;
 using HotelProject.BusinessLayer.ValidationRules;
 using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.UnitOfWork;
 using HotelProject.DtoLayer.AboutDtos;
 using HotelProject.DtoLayer.BookingDtos;
+using HotelProject.DtoLayer.ContactDtos;
+using HotelProject.DtoLayer.GuestDtos;
 using HotelProject.DtoLayer.RoomDtos;
 using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.DtoLayer.StaffDtos;
@@ -35,12 +38,23 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
                 opt.UseSqlServer(configuration.GetConnectionString("Local"));
             });
 
-            var mapper = new MapperConfiguration(opt =>
-            {
-                opt.AddProfile(new StaffProfile());
-            });
+            //var mapper = new MapperConfiguration(opt =>
+            //{
+            //    opt.AddProfile(new StaffProfile());
+            //});
+            var profiles = ProfileHelpers.GetProfiles();
 
-           services.AddScoped<IUow, Uow>();
+            //profiles.Add(new UserCreateModelProfile());
+            var mapperConfiguration = new MapperConfiguration(opt =>
+            {
+                //opt.profile();
+                opt.AddProfiles(profiles);
+
+            });
+            var mapper = mapperConfiguration.CreateMapper();
+            services.AddSingleton(mapper);
+
+            services.AddScoped<IUow, Uow>();
 
             services.AddTransient<IValidator<StaffCreateDto>,StaffCreateDtoValidator>();
             services.AddTransient<IValidator<StaffUpdateDto>,StaffUpdateDtoValidator>();
@@ -63,7 +77,12 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<BookingCreateDto>, BookingCreaeDtoValidator>();
             services.AddTransient<IValidator<BookingUpdateDto>, BookingUpdateDtoValidator>();
 
-         
+            services.AddTransient<IValidator<ContactCreateDto>, ContactCreateDtoValidator>();
+            services.AddTransient<IValidator<ContactUpdateDto>, ContactUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<GuestCreateDto>, GuestCreateDtoValidator>();
+            services.AddTransient<IValidator<GuestUpdateDto>, GuestUpdateDtoValidator>();
+
             services.AddScoped<IStaffService, StaffManager>();
             services.AddScoped<IServiceService, ServiceManager>();
             services.AddScoped<IRoomService, RoomManager>();
@@ -71,6 +90,8 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddScoped<ITestimonialService, TestimonialManager>();
             services.AddScoped<IAboutService, AboutManager>(); 
             services.AddScoped<IBookingService, BookingManager>();
+            services.AddScoped<IContactService, ContactManager>();
+            services.AddScoped<IGuestService, GuestManager>();
 
 
 

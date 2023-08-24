@@ -38,17 +38,17 @@ namespace HotelProjectWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
-            var profiles = ProfileHelpers.GetProfiles();
+            //var profiles = ProfileHelpers.GetProfiles();
 
-            //profiles.Add(new UserCreateModelProfile());
-            var mapperConfiguration = new MapperConfiguration(opt =>
-            {
-                //opt.profile();
-                opt.AddProfiles(profiles);
+            ////profiles.Add(new UserCreateModelProfile());
+            //var mapperConfiguration = new MapperConfiguration(opt =>
+            //{
+            //    //opt.profile();
+            //    opt.AddProfiles(profiles);
 
-            });
-            var mapper = mapperConfiguration.CreateMapper();
-            services.AddSingleton(mapper);
+            //});
+            //var mapper = mapperConfiguration.CreateMapper();
+            //services.AddSingleton(mapper);
            
             // services.AddScoped<IUow, Uow>();
 

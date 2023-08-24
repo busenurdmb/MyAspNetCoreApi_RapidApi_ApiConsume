@@ -1,6 +1,11 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using HotelProject.BusinessLayer.DependencyResolvers.Microsoft;
+using HotelProject.BusinessLayer.Helpers;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.EntityLayer.Concrete;
+using HotelProject.WebUI.Dtos.Guest;
+using HotelProject.WebUI.ValidationRules.GuestValidationRules;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,6 +16,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+
+using HotelProject.WebUI.Mapping.AutoMapper;
+using AutoMapper;
 
 namespace HotelProject.WebUI
 {
@@ -26,14 +34,30 @@ namespace HotelProject.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.AddDependencies(Configuration);
-         services.AddDbContext<Context>();
+           services.AddDependencies(Configuration);
+       //  services.AddDbContext<Context>();
+
+        
+        
+
             services.AddIdentity<AppUser, AppRole>().AddEntityFrameworkStores<Context>();
 
             services.AddHttpClient();
             
-            
-           services.AddControllersWithViews();
+           services.AddTransient<IValidator<GuestCreateDtoo>, GuestCreateValidator>();
+            services.AddTransient<IValidator<GuestUpdateDto>, GuestUpdateValidator>();
+            services.AddControllersWithViews();
+            services.AddFluentValidationAutoValidation();
+
+            var profiles = ProfileHelpers.GetProfiles();
+            profiles.Add(new GuestCretaeDtoProfile());
+            var configuration = new MapperConfiguration(opt =>
+            {
+                opt.AddProfiles(profiles);
+            });
+
+            var mapper = configuration.CreateMapper();
+            services.AddSingleton(mapper);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

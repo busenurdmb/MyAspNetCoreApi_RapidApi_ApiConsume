@@ -5,6 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
@@ -23,6 +26,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\ApiConsume\HotelProject.BusinessLayer\HotelProject.BusinessLayer.csproj" />
     <ProjectReference Include="..\..\ApiConsume\HotelProjectWebApi\HotelProject.WebApi.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ValidationRules\RoomValidationRules\" />
   </ItemGroup>
 
 </Project>
