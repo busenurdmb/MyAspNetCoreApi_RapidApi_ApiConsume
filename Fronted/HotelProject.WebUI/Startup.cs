@@ -19,6 +19,8 @@ using System.Threading.Tasks;
 
 using HotelProject.WebUI.Mapping.AutoMapper;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Authorization;
 
 namespace HotelProject.WebUI
 {
@@ -45,9 +47,10 @@ namespace HotelProject.WebUI
             services.AddHttpClient();
             
            services.AddTransient<IValidator<GuestCreateDtoo>, GuestCreateValidator>();
-            services.AddTransient<IValidator<GuestUpdateDto>, GuestUpdateValidator>();
+           services.AddTransient<IValidator<GuestUpdateDto>, GuestUpdateValidator>();
             services.AddControllersWithViews();
             services.AddFluentValidationAutoValidation();
+
 
             var profiles = ProfileHelpers.GetProfiles();
             profiles.Add(new GuestCretaeDtoProfile());
@@ -58,6 +61,22 @@ namespace HotelProject.WebUI
 
             var mapper = configuration.CreateMapper();
             services.AddSingleton(mapper);
+
+            //proje seviyesinde authorize
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+                config.Filters.Add(new AuthorizeFilter(policy));
+            });
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+                options.LoginPath = "/Login/Index/";
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,8 +90,11 @@ namespace HotelProject.WebUI
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseStaticFiles();
 
+            app.UseStatusCodePagesWithReExecute("/ErrorPage/Error404", "?code={0}");
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseAuthentication();
             app.UseRouting();
 
             app.UseAuthorization();

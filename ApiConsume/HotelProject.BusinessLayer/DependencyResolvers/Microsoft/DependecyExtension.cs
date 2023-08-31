@@ -13,6 +13,7 @@ using HotelProject.DtoLayer.BookingDtos;
 using HotelProject.DtoLayer.ContactDtos;
 using HotelProject.DtoLayer.GuestDtos;
 using HotelProject.DtoLayer.RoomDtos;
+using HotelProject.DtoLayer.SendMessageDtos;
 using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.DtoLayer.SubscribeDto;
@@ -33,6 +34,7 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
     {
         public static void AddDependencies(this IServiceCollection services, IConfiguration configuration)
         {
+           
             services.AddDbContext<Context>(opt =>
             {
                 opt.UseSqlServer(configuration.GetConnectionString("Local"));
@@ -82,6 +84,10 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
 
             services.AddTransient<IValidator<GuestCreateDto>, GuestCreateDtoValidator>();
             services.AddTransient<IValidator<GuestUpdateDto>, GuestUpdateDtoValidator>();
+           
+
+            services.AddTransient<IValidator<SendMessageCreateDto>, SendMessageCreateDtoValidator>();
+            services.AddTransient<IValidator<SendMessageUpdateDto>, SendMessageUpdateDtoValidator>();
 
             services.AddScoped<IStaffService, StaffManager>();
             services.AddScoped<IServiceService, ServiceManager>();
@@ -92,7 +98,9 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddScoped<IBookingService, BookingManager>();
             services.AddScoped<IContactService, ContactManager>();
             services.AddScoped<IGuestService, GuestManager>();
+           services.AddScoped<ISendMessageService,SendMessageManager>();
 
+            
 
 
         }

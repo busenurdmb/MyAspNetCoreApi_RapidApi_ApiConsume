@@ -23,7 +23,8 @@ namespace HotelProject.BusinessLayer.Helpers
                 new AboutProfile(),
                 new BookingProfiles(),
                 new ContactProfiile(),
-                new GuestProfiles()
+                new GuestProfiles(),
+                new SendMessageProfiles()
                 
             };
 

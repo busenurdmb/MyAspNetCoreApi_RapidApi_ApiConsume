@@ -15,11 +15,11 @@ namespace HotelProject.DataAccessLayer.Concrete
         {
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder opt)
-        //{
-        //    opt.UseSqlServer("server=DESKTOP-493DFJA\\SQLEXPRESS;database=ApiDB;integrated security=true");
+        protected override void OnConfiguring(DbContextOptionsBuilder opt)
+        {
+            opt.UseSqlServer("server=DESKTOP-493DFJA\\SQLEXPRESS;database=ApiDB;integrated security=true");
 
-        //}
+        }
 
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Service> Services { get; set; }
@@ -30,6 +30,7 @@ namespace HotelProject.DataAccessLayer.Concrete
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Guest> Guests { get; set; }
         public DbSet<Contact> Contacts { get; set; }
-        
+        public DbSet<SendMessage> sendMessages { get; set; }
+
     }
 }
