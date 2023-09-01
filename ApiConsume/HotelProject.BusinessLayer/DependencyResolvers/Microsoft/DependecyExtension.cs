@@ -9,15 +9,18 @@ using HotelProject.DataAccessLayer.Abstract;
 using HotelProject.DataAccessLayer.Concrete;
 using HotelProject.DataAccessLayer.UnitOfWork;
 using HotelProject.DtoLayer.AboutDtos;
+using HotelProject.DtoLayer.AppUserDtos;
 using HotelProject.DtoLayer.BookingDtos;
 using HotelProject.DtoLayer.ContactDtos;
 using HotelProject.DtoLayer.GuestDtos;
+using HotelProject.DtoLayer.MessageCategoryDtos;
 using HotelProject.DtoLayer.RoomDtos;
 using HotelProject.DtoLayer.SendMessageDtos;
 using HotelProject.DtoLayer.ServiceDtos;
 using HotelProject.DtoLayer.StaffDtos;
 using HotelProject.DtoLayer.SubscribeDto;
 using HotelProject.DtoLayer.TestimonialDtos;
+using HotelProject.DtoLayer.WorkLocationDtos;
 using HotelProject.EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -89,6 +92,15 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddTransient<IValidator<SendMessageCreateDto>, SendMessageCreateDtoValidator>();
             services.AddTransient<IValidator<SendMessageUpdateDto>, SendMessageUpdateDtoValidator>();
 
+            services.AddTransient<IValidator<MessageCategoryCreateDto>, MessageCategoryCreateDtoValidator>();
+            services.AddTransient<IValidator<MessageCategoryUpdateDto>, MessageCategoryUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<WorkLocationCreateDto>, WorkLocationCreateDtoValidator>();
+            services.AddTransient<IValidator<WorkLocationUpdateDto>, WorkLocationUpdateDtoValidator>();
+
+            services.AddTransient<IValidator<AppUserCreateDto>, AppUserCreateDtoValidator>();
+            services.AddTransient<IValidator<AppUserUpdateDto>, AppUserUpdateDtoValidator>();
+
             services.AddScoped<IStaffService, StaffManager>();
             services.AddScoped<IServiceService, ServiceManager>();
             services.AddScoped<IRoomService, RoomManager>();
@@ -99,8 +111,11 @@ namespace HotelProject.BusinessLayer.DependencyResolvers.Microsoft
             services.AddScoped<IContactService, ContactManager>();
             services.AddScoped<IGuestService, GuestManager>();
            services.AddScoped<ISendMessageService,SendMessageManager>();
+           services.AddScoped<IMessageCategoryService,MessageCategorrManager>();
+           services.AddScoped<IWorkLocationService, WorkLocationManager>();
+           services.AddScoped<IAppUserService, AppUserManager>();
 
-            
+
 
 
         }

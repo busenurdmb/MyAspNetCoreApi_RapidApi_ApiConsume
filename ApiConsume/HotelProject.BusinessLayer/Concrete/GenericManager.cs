@@ -61,6 +61,8 @@ namespace HotelProject.BusinessLayer.Concrete
                
         }
 
+      
+
         public async Task RemoveAsync(int id)
         {
                var data = await _uow.GetRepository<T>().FindAsync(id);

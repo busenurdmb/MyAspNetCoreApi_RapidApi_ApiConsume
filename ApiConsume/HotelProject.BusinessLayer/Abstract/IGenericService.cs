@@ -18,6 +18,7 @@ namespace HotelProject.BusinessLayer.Abstract
         Task<CreateDto> CreateAsync(CreateDto Dto);
         Task<UpdateDto> UpdateAsync(UpdateDto Dto);
         Task<IDto> GetByIdAsync<IDto>(int id);
+       
         Task RemoveAsync(int id);
         Task<IList<ListDto>> GetAllAsync();
         

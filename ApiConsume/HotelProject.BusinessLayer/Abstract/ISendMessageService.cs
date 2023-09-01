@@ -10,5 +10,6 @@ namespace HotelProject.BusinessLayer.Abstract
 {
     public interface ISendMessageService:IGenericService<SendMessageCreateDto,SendMessageUpdateDto,SendMessageListDto,SendMessage>
     {
+        int SendMessagecount();
     }
 }

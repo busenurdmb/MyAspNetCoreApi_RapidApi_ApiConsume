@@ -37,7 +37,7 @@ namespace HotelProject.WebUI
         public void ConfigureServices(IServiceCollection services)
         {
            services.AddDependencies(Configuration);
-       //  services.AddDbContext<Context>();
+         //services.AddDbContext<Context>();
 
         
         

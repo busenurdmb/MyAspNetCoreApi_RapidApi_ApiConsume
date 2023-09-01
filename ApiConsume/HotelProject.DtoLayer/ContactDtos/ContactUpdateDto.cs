@@ -14,6 +14,7 @@ namespace HotelProject.DtoLayer.ContactDtos
         public string Mail { get; set; }
         public string Subject { get; set; }
         public string Message { get; set; }
+        public int MessageCategoryID { get; set; }
         public DateTime Date { get; set; }
     }
 }

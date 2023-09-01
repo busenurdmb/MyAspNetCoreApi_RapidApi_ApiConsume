@@ -1,10 +1,16 @@
 ﻿using HotelProject.DtoLayer.BookingDtos;
 using HotelProject.WebUI.Dtos.Contact;
+using HotelProject.WebUI.Dtos.MessageCategory;
+using HotelProject.WebUI.Dtos.Room;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -20,9 +26,24 @@ namespace HotelProject.WebUI.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var client = _httpClientFactory.CreateClient();
+            var responmmessage = await client.GetAsync("http://localhost:58806/api/MessageCategory");
+          
+                var jsondata = await responmmessage.Content.ReadAsStringAsync();
+                var values = JsonConvert.DeserializeObject<List<MessageCategoryListDto>>(jsondata);
+            List<SelectListItem> values2 = (from x in values
+                                            select new SelectListItem
+                                            {
+                                                Text = x.MessageCategoryName,
+                                                Value
+                                                = x.ID.ToString()
+                                            }).ToList();
+            ViewBag.v = values2;
+                return View();
+            
+           
         }
         [HttpGet]
         public PartialViewResult _SendMessage()

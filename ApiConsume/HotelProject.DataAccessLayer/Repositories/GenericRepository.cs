@@ -5,6 +5,7 @@ using HotelProject.EntityLayer.Concrete;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
@@ -95,6 +96,18 @@ namespace HotelProject.DataAccessLayer.Repositories
             value.Status = "Onaylandı";
 
         }
+
+        public int GetCount()
+        {
+           return _context.Set<T>().Count();
+            
+        }
+
+
+
+
+
+
 
         //public void Insert(T t)
         //{

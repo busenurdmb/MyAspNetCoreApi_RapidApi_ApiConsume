@@ -1,4 +1,5 @@
-﻿using HotelProject.DtoLayer.ContactDtos;
+﻿using HotelProject.DtoLayer.BookingDtos;
+using HotelProject.DtoLayer.ContactDtos;
 using HotelProject.EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -10,5 +11,6 @@ namespace HotelProject.BusinessLayer.Abstract
 {
     public interface IContactService:IGenericService<ContactCreateDto,ContactUpdateDto,ContactListDto,Contact>
     {
+        int coontactcount();
     }
 }

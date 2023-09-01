@@ -14,8 +14,16 @@ namespace HotelProject.BusinessLayer.Concrete
 {
     public class SendMessageManager : GenericManager<SendMessageCreateDto, SendMessageUpdateDto, SendMessageListDto, SendMessage>,ISendMessageService
     {
+        private readonly IUow _uow;
         public SendMessageManager(IUow uow, IMapper mapper, IValidator<SendMessageCreateDto> createdtovalidator, IValidator<SendMessageUpdateDto> updatevalidator) : base(uow, mapper, createdtovalidator, updatevalidator)
         {
+            _uow = uow;
+        }
+     
+
+        public int SendMessagecount()
+        {
+            return _uow.GetRepository<SendMessage>().GetCount();
         }
     }
 }
