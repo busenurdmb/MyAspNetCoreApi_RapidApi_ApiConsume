@@ -11,6 +11,8 @@ namespace HotelProject.DataAccessLayer.Concrete
 {
     public class Context : IdentityDbContext<AppUser,AppRole,int>
     {
+      
+
         public Context(DbContextOptions<Context> options) : base(options)
         {
         }

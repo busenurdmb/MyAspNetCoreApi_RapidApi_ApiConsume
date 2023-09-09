@@ -25,6 +25,11 @@ namespace HotelProject.DataAccessLayer.UnitOfWork
             return new GenericRepository<T>(_context);
         }
 
+        public IDontBaseEntityRepository<T> GetRepositoryDontBase<T>() where T : class
+        {
+            return new DontBaseEntityRepository<T>(_context);
+        }
+
         public async Task SaveChangesAsync()
         {
             await _context.SaveChangesAsync();

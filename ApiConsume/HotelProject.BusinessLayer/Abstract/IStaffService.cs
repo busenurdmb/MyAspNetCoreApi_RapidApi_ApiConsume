@@ -10,5 +10,7 @@ namespace HotelProject.BusinessLayer.Abstract
 {
     public interface IStaffService:IGenericService<StaffCreateDto,StaffUpdateDto,StaffListDto,Staff>
     {
+        int Staffcount();
+       Task<IList<StaffListDto>> Last4T();
     }
 }

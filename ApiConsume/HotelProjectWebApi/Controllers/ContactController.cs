@@ -73,6 +73,10 @@ namespace HotelProject.WebApi.Controllers
         {
             return Ok(_ContactService.coontactcount());
         }
-
+        [HttpGet("message4LastList")]
+        public async Task<IActionResult> Staff4LastList()
+        {
+            return Ok(await _ContactService.Last4T());
+        }
     }
 }

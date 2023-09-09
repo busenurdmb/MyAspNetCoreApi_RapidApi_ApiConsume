@@ -38,6 +38,7 @@ namespace HotelProjectWebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDependencies(Configuration);
+            
             //var profiles = ProfileHelpers.GetProfiles();
 
             ////profiles.Add(new UserCreateModelProfile());
@@ -74,7 +75,10 @@ namespace HotelProjectWebApi
                     opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
                 });
             });
-            services.AddControllers();
+            services.AddControllersWithViews()
+     .AddNewtonsoftJson(options =>
+     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+ );
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "HotelProjectWebApi", Version = "v1" });

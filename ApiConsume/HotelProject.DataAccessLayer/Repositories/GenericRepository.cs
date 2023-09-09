@@ -103,6 +103,32 @@ namespace HotelProject.DataAccessLayer.Repositories
             
         }
 
+        public async Task<List<T>> Last4T()
+        {
+            return await _context.Set<T>().OrderByDescending(x => x.ID).Take(4).ToListAsync();
+        }
+
+        public async Task<List<T>> Last6T()
+        {
+            return await _context.Set<T>().OrderByDescending(x => x.ID).Take(6).ToListAsync();
+        }
+
+        public void BookingStatusChangedCancel(T entity)
+        {
+            //_context.Set<T>().Where(X => X.ID == entity.ID).FirstOrDefault();
+            var value = _context.Bookings.Where(x => x.ID == entity.ID).FirstOrDefault();
+            value.Status = "İptal Edildi";
+
+        }
+
+        public void BookingStatusChangedWait(T entity)
+        {
+            var value = _context.Bookings.Where(x => x.ID == entity.ID).FirstOrDefault();
+            value.Status = "Beklemede";
+        }
+
+      
+
 
 
 

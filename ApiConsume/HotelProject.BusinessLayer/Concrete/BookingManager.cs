@@ -42,5 +42,56 @@ namespace HotelProject.BusinessLayer.Concrete
             return Dto;   
           
         }
+        public async Task<BookingUpdateDto> BookingStatusChangedCancel(BookingUpdateDto Dto)
+        {
+            //Dto.Status = "İptal Edildi";
+            //var result = _updatevalidator.Validate(Dto);
+            //if (result.IsValid)
+            //{
+            //    var unchangedData = await _uow.GetRepository<Booking>().FindAsync(Dto.ID);
+            //    if (unchangedData != null)
+            //    {
+
+            //        var entity = _mapper.Map<Booking>(Dto);
+            //        _uow.GetRepository<Booking>().Update(entity,unchangedData);
+
+            //        await _uow.SaveChangesAsync();
+            //    }
+            //}
+            //return Dto;
+            var result = _updatevalidator.Validate(Dto);
+            if (result.IsValid)
+            {
+                var entity = _mapper.Map<Booking>(Dto);
+                _uow.GetRepository<Booking>().BookingStatusChangedCancel(entity);
+
+                await _uow.SaveChangesAsync();
+            }
+            return Dto;
+        }
+        public int Bookingcount()
+        {
+            return _uow.GetRepository<Booking>().GetCount();
+        }
+
+        public async Task<IList<BookingListDto>> Last6T()
+        {
+            var data=await _uow.GetRepository<Booking>().Last6T();
+            var dto=_mapper.Map<List<BookingListDto>>(data);
+            return dto;
+        }
+
+        public async Task<BookingUpdateDto> BookingStatusChangedWait(BookingUpdateDto Dto)
+        {
+            var result = _updatevalidator.Validate(Dto);
+            if (result.IsValid)
+            {
+                var entity = _mapper.Map<Booking>(Dto);
+                _uow.GetRepository<Booking>().BookingStatusChangedWait(entity);
+
+                await _uow.SaveChangesAsync();
+            }
+            return Dto;
+        }
     }
 }

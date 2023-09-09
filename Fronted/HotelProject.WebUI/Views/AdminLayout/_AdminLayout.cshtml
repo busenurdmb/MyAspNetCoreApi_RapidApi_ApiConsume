@@ -18,7 +18,8 @@
 
         @await Html.PartialAsync("/Views/AdminLayout/NavheaderPartial.cshtml")
 
-        @await Html.PartialAsync("/Views/AdminLayout/HeaderPartial.cshtml")
+        @await Component.InvokeAsync("_adminLayoutHeaadMessagePartial")
+        
 
 
         @await Html.PartialAsync("/Views/AdminLayout/SidebarPartial.cshtml")

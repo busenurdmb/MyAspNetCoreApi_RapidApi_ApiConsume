@@ -74,5 +74,32 @@ namespace HotelProject.WebApi.Controllers
             var response = await _BookingService.BoookingStatusChangedApproved(updateDto);
             return NoContent();
         }
+        [HttpPut("CancelBookingupdate")]
+        public async Task<IActionResult> CancelBookingupdate(BookingUpdateDto updateDto)
+        {
+            var checkstaf = await _BookingService.GetByIdAsync<BookingListDto>(updateDto.ID);
+            if (checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
+            var response = await _BookingService.BookingStatusChangedCancel(updateDto);
+            return NoContent();
+        }
+        [HttpPut("WaitBookingupdate")]
+        public async Task<IActionResult> WaitBookingupdate(BookingUpdateDto updateDto)
+        {
+            var checkstaf = await _BookingService.GetByIdAsync<BookingListDto>(updateDto.ID);
+            if (checkstaf == null)
+            {
+                return NotFound(updateDto.ID);
+            }
+            var response = await _BookingService.BookingStatusChangedWait(updateDto);
+            return NoContent();
+        }
+        [HttpGet("Booking6LastList")]
+        public async Task<IActionResult> Booking6LastList()
+        {
+            return Ok(await _BookingService.Last6T());
+        }
     }
 }

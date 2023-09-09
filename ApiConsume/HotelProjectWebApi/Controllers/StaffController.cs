@@ -71,6 +71,11 @@ namespace HotelProject.WebApi.Controllers
             return Ok(data);
 
         }
+        [HttpGet("Staff4LastList")]
+        public async Task<IActionResult> Staff4LastList()
+        {
+            return Ok(await _staffService.Last4T());
+        }
 
     }
 }

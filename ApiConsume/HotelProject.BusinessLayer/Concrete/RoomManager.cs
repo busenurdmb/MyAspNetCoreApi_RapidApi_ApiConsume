@@ -15,8 +15,15 @@ namespace HotelProject.BusinessLayer.Concrete
 {
     public class RoomManager : GenericManager<RoomCreateDto, RoomUpdateDto, RommListDto, Room>, IRoomService
     {
+        private readonly IUow _uow;
         public RoomManager(IUow uow, IMapper mapper, IValidator<RoomCreateDto> createdtovalidator, IValidator<RoomUpdateDto> updatevalidator) : base(uow, mapper, createdtovalidator, updatevalidator)
         {
+            _uow = uow;
+        }
+
+        public int Roomcount()
+        {
+            return _uow.GetRepository<Room>().GetCount();
         }
     }
 }
